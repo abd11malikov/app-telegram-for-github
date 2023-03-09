@@ -1,12 +1,12 @@
 package org.example.model.user;
 
-import enums.Role;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import model.base.BaseModel;
-import model.base.BaseUGC;
+
+import org.example.enums.Role;
+import org.example.model.base.BaseUGC;
 
 import java.util.List;
 @Setter

@@ -1,10 +1,10 @@
-package service.user;
+package org.example.service.user;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import dto.requestDto.UserRequestDto;
-import dto.responseDto.UserResponseDto;
-import model.user.UserEntity;
+import org.example.dto.requestDto.UserRequestDto;
+import org.example.dto.responseDto.UserResponseDto;
+import org.example.model.user.UserEntity;
 import org.modelmapper.ModelMapper;
 
 import java.io.*;
@@ -37,6 +37,8 @@ public class UserServiceImp implements UserService {
         }
         return false;
     }
+
+
 
     @Override
     public UserResponseDto get(UUID id) {
@@ -71,6 +73,7 @@ public class UserServiceImp implements UserService {
         }
         return users;
     }
+
 
     @Override
     public boolean writeData(List<UserEntity> data) {
