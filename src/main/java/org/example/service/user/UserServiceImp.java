@@ -1,12 +1,11 @@
 package org.example.service.user;
-
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import org.example.dto.requestDto.UserRequestDto;
 import org.example.dto.responseDto.UserResponseDto;
 import org.example.model.user.UserEntity;
 import org.modelmapper.ModelMapper;
-
 import java.io.*;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -77,7 +76,15 @@ public class UserServiceImp implements UserService {
 
     @Override
     public boolean writeData(List<UserEntity> data) {
-        return false;
+        File file = new File("users.json");
+        Gson gson = new Gson();
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file))) {
+            String json = gson.toJson(data);
+            bufferedWriter.write(json);
+        } catch (IOException e) {
+            return false;
+        }
+        return true;
     }
 
     @Override
