@@ -1,11 +1,10 @@
 package org.example;
 
-import org.example.dto.requestDto.ChannelRequestDto;
-import org.example.dto.requestDto.GroupRequestDto;
-import org.example.dto.requestDto.MessageRequestDto;
-import org.example.dto.requestDto.PostRequestDto;
+import org.example.dto.requestDto.*;
 import org.example.service.channel.ChannelService;
 import org.example.service.channel.ChannelServiceImp;
+import org.example.service.chat.ChatService;
+import org.example.service.chat.ChatServiceImp;
 import org.example.service.group.GroupService;
 import org.example.service.group.GroupServiceImp;
 import org.example.service.message.MessageService;
@@ -21,26 +20,8 @@ public class Main {
     static PostService postService = new PostServiceImp();
     static ChannelService channelService = new ChannelServiceImp();
     static GroupService groupService = new GroupServiceImp();
+    static ChatService chatService = new ChatServiceImp();
     public static void main(String[] args) {
-        MessageRequestDto messageRequestDto = MessageRequestDto.builder()
-                .text("sdfdsf")
-                .userId(userService.getData().get(0).getId())
-                .build();
-        messageService.create(messageRequestDto);
-        PostRequestDto postRequestDto = PostRequestDto.builder()
-                .messageRequestDto(messageRequestDto)
-                .build();
-        postService.create(postRequestDto);
-        ChannelRequestDto channelRequestDto = ChannelRequestDto.builder()
-                .bio("You are yourself")
-                .link("linkedin")
-                .name("channelN1")
-                .build();
-        channelService.create(channelRequestDto);
-        GroupRequestDto groupRequestDto = GroupRequestDto.builder()
-                .name("fghjk")
-                .link("fghj")
-                .build();
-        groupService.create(groupRequestDto);
+
     }
 }
