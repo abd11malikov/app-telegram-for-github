@@ -1,14 +1,15 @@
-package org.example.service.channel;
+package org.example.service.group;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import org.example.dto.requestDto.ChannelRequestDto;
-import org.example.dto.responseDto.ChannelResponseDto;
+import org.example.dto.requestDto.GroupRequestDto;
+import org.example.dto.responseDto.GroupResponseDto;
 import org.example.model.channel.ChannelEntity;
-import org.example.service.user.UserService;
-import org.example.service.user.UserServiceImp;
+import org.example.model.group.GroupEntity;
+import org.example.model.user.UserEntity;
 import org.modelmapper.ModelMapper;
+
 import java.io.*;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -16,23 +17,22 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-public class ChannelServiceImp implements ChannelService {
+public class GroupServiceImp implements GroupService {
     static ModelMapper modelMapper = new ModelMapper();
-    static UserService userService = new UserServiceImp();
     @Override
-    public boolean create(ChannelRequestDto channelRequestDto) {
-        if(channelRequestDto.getLink()!=null)
-            if (channelRequestDto.getName()!=null){
-                List<ChannelEntity> data = getData();
+    public boolean create(GroupRequestDto groupRequestDto) {
+        if(groupRequestDto.getLink()!=null)
+            if (groupRequestDto.getName()!=null){
+                List<GroupEntity> data = getData();
                 if (data==null) data= new ArrayList<>();
-                for (ChannelEntity channel : data) {
-                    if (channel.getLink().equals(channelRequestDto.getLink())) return false;
+                for (GroupEntity channel : data) {
+                    if (channel.getLink().equals(groupRequestDto.getLink())) return false;
                 }
-                ChannelEntity channel = modelMapper.map(channelRequestDto, ChannelEntity.class);
+                GroupEntity channel = modelMapper.map(groupRequestDto, GroupEntity.class);
                 channel.setId(UUID.randomUUID());
                 channel.setMembers(new ArrayList<>());
                 channel.setDate(new Date());
-                channel.setPostEntity(new ArrayList<>());
+                channel.setMessageEntities(new ArrayList<>());
                 data.add(channel);
                 writeData(data);
                 return true;
@@ -41,12 +41,12 @@ public class ChannelServiceImp implements ChannelService {
     }
 
     @Override
-    public ChannelResponseDto get(UUID id) {
+    public GroupResponseDto get(UUID id) {
         return null;
     }
 
     @Override
-    public List<ChannelResponseDto> getList() {
+    public List<GroupResponseDto> getList() {
         return null;
     }
 
@@ -56,27 +56,27 @@ public class ChannelServiceImp implements ChannelService {
     }
 
     @Override
-    public boolean update(UUID id, ChannelRequestDto channelRequestDto) {
+    public boolean update(UUID id, GroupRequestDto groupRequestDto) {
         return false;
     }
 
     @Override
-    public List<ChannelEntity> getData() {
-        File file = new File("data/channels.json");
+    public List<GroupEntity> getData() {
+        File file = new File("data/groups.json");
         Gson gson= new Gson();
-        List<ChannelEntity> channelEntityList;
+        List<GroupEntity> users;
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
-            Type type = new TypeToken<List<ChannelEntity>>() {}.getType();
-            channelEntityList = gson.fromJson(bufferedReader,type);
+            Type type = new TypeToken<List<GroupEntity>>() {}.getType();
+            users = gson.fromJson(bufferedReader,type);
         } catch (IOException e) {
             return null;
         }
-        return channelEntityList;
+        return users;
     }
 
     @Override
-    public boolean writeData(List<ChannelEntity> data) {
-        File file = new File("data/channels.json");
+    public boolean writeData(List<GroupEntity> data) {
+        File file = new File("data/groups.json");
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file))) {
             String json = gson.toJson(data);
@@ -88,7 +88,7 @@ public class ChannelServiceImp implements ChannelService {
     }
 
     @Override
-    public ChannelEntity getEntity(UUID id) {
+    public GroupEntity getEntity(UUID id) {
         return null;
     }
 }
