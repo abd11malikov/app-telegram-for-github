@@ -37,7 +37,6 @@ public class PostServiceImp implements PostService{
                 data.add(post);
                 writeData(data);
                 return true;
-
             }
         }
         return false;
