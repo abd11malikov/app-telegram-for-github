@@ -1,11 +1,13 @@
 package org.example;
 
 import org.example.dto.requestDto.ChannelRequestDto;
+import org.example.dto.requestDto.GroupRequestDto;
 import org.example.dto.requestDto.MessageRequestDto;
 import org.example.dto.requestDto.PostRequestDto;
-import org.example.dto.requestDto.UserRequestDto;
 import org.example.service.channel.ChannelService;
 import org.example.service.channel.ChannelServiceImp;
+import org.example.service.group.GroupService;
+import org.example.service.group.GroupServiceImp;
 import org.example.service.message.MessageService;
 import org.example.service.message.MessageServiceImp;
 import org.example.service.post.PostService;
@@ -18,6 +20,7 @@ public class Main {
     static MessageService messageService = new MessageServiceImp();
     static PostService postService = new PostServiceImp();
     static ChannelService channelService = new ChannelServiceImp();
+    static GroupService groupService = new GroupServiceImp();
     public static void main(String[] args) {
         MessageRequestDto messageRequestDto = MessageRequestDto.builder()
                 .text("sdfdsf")
@@ -34,5 +37,10 @@ public class Main {
                 .name("channelN1")
                 .build();
         channelService.create(channelRequestDto);
+        GroupRequestDto groupRequestDto = GroupRequestDto.builder()
+                .name("fghjk")
+                .link("fghj")
+                .build();
+        groupService.create(groupRequestDto);
     }
 }
