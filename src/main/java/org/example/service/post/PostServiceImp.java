@@ -1,0 +1,79 @@
+package org.example.service.post;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+import org.example.dto.requestDto.PostRequestDto;
+import org.example.dto.responseDto.PostResponseDto;
+import org.example.model.channel.PostEntity;
+import org.example.service.message.MessageService;
+import org.example.service.message.MessageServiceImp;
+
+import java.io.*;
+import java.lang.reflect.Type;
+import java.util.List;
+import java.util.UUID;
+
+public class PostServiceImp implements PostService{
+    static MessageService messageService = new MessageServiceImp();
+    @Override
+    public boolean create(PostRequestDto postRequestDto) {
+        if (postRequestDto.getMessageRequestDto() != null){
+            boolean result = messageService.create(postRequestDto.getMessageRequestDto());
+
+        }
+        return false;
+    }
+
+    @Override
+    public PostResponseDto get(UUID id) {
+        return null;
+    }
+
+    @Override
+    public List<PostResponseDto> getList() {
+        return null;
+    }
+
+    @Override
+    public boolean delete(UUID id) {
+        return false;
+    }
+
+    @Override
+    public boolean update(UUID id, PostRequestDto postRequestDto) {
+        return false;
+    }
+
+    @Override
+    public List<PostEntity> getData() {
+        File file = new File("data/posts.json");
+        Gson gson= new Gson();
+        List<PostEntity> posts;
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
+            Type type = new TypeToken<List<PostEntity>>() {}.getType();
+            posts = gson.fromJson(bufferedReader,type);
+        } catch (IOException e) {
+            return null;
+        }
+        return posts;
+    }
+
+    @Override
+    public boolean writeData(List<PostEntity> data) {
+        File file = new File("data/posts.json");
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file))) {
+            String json = gson.toJson(data);
+            bufferedWriter.write(json);
+        } catch (IOException e) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public PostEntity getEntity(UUID id) {
+        return null;
+    }
+}
