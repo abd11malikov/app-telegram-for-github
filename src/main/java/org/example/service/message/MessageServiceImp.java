@@ -85,7 +85,7 @@ public class MessageServiceImp implements MessageService{
         if (data !=null){
             for (MessageEntity messageEntity : data) {
                 if (messageEntity.getId().equals(id)){
-                    data.remove(messageRequestDto);
+                    data.remove(messageEntity);
                     modelMapper.map(messageRequestDto,messageEntity);
                     data.add(messageEntity);
                     writeData(data);
