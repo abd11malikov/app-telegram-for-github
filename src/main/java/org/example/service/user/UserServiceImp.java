@@ -47,21 +47,60 @@ public class UserServiceImp implements UserService {
 
     @Override
     public UserResponseDto get(UUID id) {
+        List<UserEntity> userEntityList = getData();
+        if (userEntityList != null){
+            for (UserEntity userEntity : userEntityList) {
+                if (userEntity.getId().equals(id)){
+                    return modelMapper.map(userEntity, UserResponseDto.class);
+                }
+            }
+        }
         return null;
     }
 
     @Override
     public List<UserResponseDto> getList() {
+        List<UserEntity> userEntityList = getData();
+        List<UserResponseDto> userResponseDtoList = new ArrayList<>();
+        if (userEntityList != null){
+            for (UserEntity userEntity : userEntityList) {
+                UserResponseDto userResponseDto = modelMapper.map(userEntity, UserResponseDto.class);
+                userResponseDtoList.add(userResponseDto);
+            }
+            return userResponseDtoList;
+        }
         return null;
     }
 
     @Override
     public boolean delete(UUID id) {
+        List<UserEntity> data = getData();
+        if (data != null){
+            for (UserEntity datum : data) {
+                if (datum.getId().equals(id)){
+                    data.remove(datum);
+                    writeData(data);
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
     @Override
     public boolean update(UUID id, UserRequestDto userRequestDto) {
+        List<UserEntity> userEntities = getData();
+        if (userEntities != null){
+            for (UserEntity userEntity : userEntities) {
+                if (userEntity.getId().equals(id)){
+                    userEntities.remove(userEntity);
+                    modelMapper.map(userRequestDto,userEntity);
+                    userEntities.add(userEntity);
+                    writeData(userEntities);
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
@@ -95,6 +134,12 @@ public class UserServiceImp implements UserService {
 
     @Override
     public UserEntity getEntity(UUID id) {
+        List<UserEntity> data = getData();
+        if (data != null){
+            for (UserEntity datum : data) {
+                if (datum.getId().equals(id))return datum;
+            }
+        }
         return null;
     }
 }
