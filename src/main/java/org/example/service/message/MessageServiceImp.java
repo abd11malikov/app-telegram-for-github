@@ -19,8 +19,10 @@ import java.util.List;
 import java.util.UUID;
 
 public class MessageServiceImp implements MessageService{
+
     static UserService userService = new UserServiceImp();
     static ModelMapper modelMapper = new ModelMapper();
+
     @Override
     public boolean create(MessageRequestDto messageRequestDto) {
         if(messageRequestDto.getText()!=null){

@@ -44,6 +44,15 @@ public class PostServiceImp implements PostService{
 
     @Override
     public PostResponseDto get(UUID id) {
+        List<PostEntity> data = getData();
+        if (data != null){
+            for (PostEntity datum : data) {
+                if (datum.getId().equals(id)){
+                    return modelMapper.map(datum,PostResponseDto.class);
+
+                }
+            }
+        }
         return null;
     }
 

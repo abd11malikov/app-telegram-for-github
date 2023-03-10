@@ -42,21 +42,59 @@ public class ChannelServiceImp implements ChannelService {
 
     @Override
     public ChannelResponseDto get(UUID id) {
+        List<ChannelEntity> data = getData();
+        if (data != null){
+            for (ChannelEntity datum : data) {
+                if (datum.getId().equals(id)){
+                    return modelMapper.map(datum,ChannelResponseDto.class);
+                }
+            }
+        }
         return null;
     }
 
     @Override
     public List<ChannelResponseDto> getList() {
+        List<ChannelEntity> data = getData();
+        List<ChannelResponseDto> channelEntities=new ArrayList<>();
+        if (data !=null){
+            for (ChannelEntity channelEntity : data) {
+                channelEntities.add(modelMapper.map(channelEntity, ChannelResponseDto.class));
+            }
+            return channelEntities;
+        }
         return null;
     }
 
     @Override
     public boolean delete(UUID id) {
+        List<ChannelEntity> data = getData();
+        if (data !=null){
+            for (ChannelEntity datum : data) {
+                if (datum.getId().equals(id)){
+                    data.remove(datum);
+                    writeData(data);
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
     @Override
     public boolean update(UUID id, ChannelRequestDto channelRequestDto) {
+        List<ChannelEntity> data = getData();
+        if (data != null){
+            for (ChannelEntity datum : data) {
+                if (datum.getId().equals(id)){
+                    data.remove(datum);
+                    modelMapper.map(channelRequestDto,datum);
+                    data.add(datum);
+                    writeData(data);
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
@@ -89,6 +127,14 @@ public class ChannelServiceImp implements ChannelService {
 
     @Override
     public ChannelEntity getEntity(UUID id) {
+        List<ChannelEntity> data = getData();
+        if (data != null){
+            for (ChannelEntity datum : data) {
+                if (datum.getId().equals(id)){
+                    return datum;
+                }
+            }
+        }
         return null;
     }
 }
