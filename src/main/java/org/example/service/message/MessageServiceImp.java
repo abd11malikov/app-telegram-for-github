@@ -5,6 +5,7 @@ import com.google.gson.reflect.TypeToken;
 import org.example.dto.requestDto.MessageRequestDto;
 import org.example.dto.responseDto.MessageResponseDto;
 import org.example.dto.responseDto.UserResponseDto;
+import org.example.enums.MessageState;
 import org.example.model.message.MessageEntity;
 import org.example.service.user.UserService;
 import org.example.service.user.UserServiceImp;
@@ -13,6 +14,7 @@ import org.modelmapper.ModelMapper;
 import java.io.*;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -28,6 +30,8 @@ public class MessageServiceImp implements MessageService{
                 if (data==null) data = new ArrayList<>();
                 MessageEntity message = modelMapper.map(messageRequestDto, MessageEntity.class);
                 message.setId(UUID.randomUUID());
+                message.setMessageState(MessageState.UNREAD);
+                message.setDate(new Date());
                 data.add(message);
                 writeData(data);
                 return true;
