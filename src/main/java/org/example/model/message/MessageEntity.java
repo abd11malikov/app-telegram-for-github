@@ -12,7 +12,7 @@ import org.example.model.user.UserEntity;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Message extends BaseModel {
+public class MessageEntity extends BaseModel {
     private UserEntity user;
     private String text;
     private MessageState messageState;

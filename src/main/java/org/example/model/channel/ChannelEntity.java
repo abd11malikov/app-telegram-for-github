@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ChannelEntity extends BaseUGC {
-    private List<Post> post;
+    private List<PostEntity> postEntity;
     private List<UserEntity> members;
 
 }

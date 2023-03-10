@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.example.model.base.BaseUGC;
-import org.example.model.message.Message;
+import org.example.model.message.MessageEntity;
 import org.example.model.user.UserEntity;
 
 
@@ -15,6 +15,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class GroupEntity extends BaseUGC {
-    private List<Message> messages;
+    private List<MessageEntity> messageEntities;
     private List<UserEntity> members;
 }

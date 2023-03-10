@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.example.model.base.BaseModel;
-import org.example.model.message.Message;
+import org.example.model.message.MessageEntity;
 import org.example.model.user.UserEntity;
 
 import java.util.List;
@@ -16,5 +16,5 @@ import java.util.List;
 public class ChatEntity extends BaseModel {
     private UserEntity user1;
     private UserEntity user2;
-    private List<Message> messages;
+    private List<MessageEntity> messageEntities;
 }

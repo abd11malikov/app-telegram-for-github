@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.example.enums.MessageState;
 import org.example.model.base.BaseModel;
-import org.example.model.message.Message;
+import org.example.model.message.MessageEntity;
 
 import java.util.List;
 import java.util.UUID;
@@ -15,9 +15,9 @@ import java.util.UUID;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Post extends BaseModel {
-    private List<Message> comment;
+public class PostEntity extends BaseModel {
+    private List<MessageEntity> comment;
     private MessageState state;
     private List<UUID> views;
-    private Message message;
+    private MessageEntity messageEntity;
 }
