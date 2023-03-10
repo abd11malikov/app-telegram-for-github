@@ -37,21 +37,60 @@ public class MessageServiceImp implements MessageService{
 
     @Override
     public MessageResponseDto get(UUID id) {
+        List<MessageEntity> data = getData();
+        if (data != null){
+            for (MessageEntity message : data) {
+                if (message.getId().equals(id)){
+                    return modelMapper.map(message,MessageResponseDto.class);
+                }
+            }
+        }
         return null;
     }
 
     @Override
     public List<MessageResponseDto> getList() {
+        List<MessageEntity> data = getData();
+        List<MessageResponseDto> messageResponseDto=new ArrayList<>();
+        if (data != null){
+            for (MessageEntity message : data) {
+                MessageResponseDto responseDto = modelMapper.map(message, MessageResponseDto.class);
+                messageResponseDto.add(responseDto);
+            }
+            return messageResponseDto;
+        }
         return null;
     }
 
     @Override
     public boolean delete(UUID id) {
+        List<MessageEntity> data = getData();
+        if (data != null){
+            for (MessageEntity messageEntity : data) {
+                if (messageEntity.getId().equals(id)){
+                    data.remove(messageEntity);
+                    writeData(data);
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
     @Override
     public boolean update(UUID id, MessageRequestDto messageRequestDto) {
+        List<MessageEntity> data = getData();
+        if (data !=null){
+            for (MessageEntity messageEntity : data) {
+                if (messageEntity.getId().equals(id)){
+                    data.remove(messageRequestDto);
+                    modelMapper.map(messageRequestDto,messageEntity);
+                    data.add(messageEntity);
+                    writeData(data);
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
@@ -84,6 +123,14 @@ public class MessageServiceImp implements MessageService{
 
     @Override
     public MessageEntity getEntity(UUID id) {
+        List<MessageEntity> data = getData();
+        if (data != null){
+            for (MessageEntity messageEntity : data) {
+                if (messageEntity.getId().equals(id)){
+                    return messageEntity;
+                }
+            }
+        }
         return null;
     }
 }
