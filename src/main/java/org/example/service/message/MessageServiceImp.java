@@ -30,6 +30,7 @@ public class MessageServiceImp implements MessageService{
                 message.setId(UUID.randomUUID());
                 data.add(message);
                 writeData(data);
+                return true;
             }
         }
         return false;
