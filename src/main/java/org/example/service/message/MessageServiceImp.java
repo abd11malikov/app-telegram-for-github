@@ -32,6 +32,7 @@ public class MessageServiceImp implements MessageService{
                 writeData(data);
                 return true;
             }
+
         }
         return false;
     }
