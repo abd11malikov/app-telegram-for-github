@@ -67,7 +67,6 @@ public class GroupServiceImp implements GroupService {
         return null;
     }
 
-
     @Override
     public boolean delete(UUID id) {
         List<GroupEntity> data = getData();

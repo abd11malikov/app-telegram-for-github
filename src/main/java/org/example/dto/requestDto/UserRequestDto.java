@@ -11,4 +11,5 @@ public class UserRequestDto {
     private String name;
     private String link;
     private String phoneNumber;
+    private String password;
 }

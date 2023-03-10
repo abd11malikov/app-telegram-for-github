@@ -25,6 +25,35 @@ public class ChatServiceImp implements ChatService{
     static UserService userService = new UserServiceImp();
 
     @Override
+    public boolean create(ChatRequestDto chatRequestDto) {
+        UserResponseDto user1 = userService.get(chatRequestDto.getUser1Id());
+        if (user1!=null){
+            UserResponseDto user2 = userService.get(chatRequestDto.getUser2Id());
+            if (user2!=null){
+                ChatResponseDto chatResponseDto = get(chatRequestDto.getUser1Id(), chatRequestDto.getUser2Id());
+                if (chatResponseDto == null){
+                    ChatEntity chatEntity = new ChatEntity();
+                    chatEntity.setUser1(userService.getEntity(user1.getId()));
+                    chatEntity.setUser2(userService.getEntity(user2.getId()));
+                    chatEntity.setDate(new Date());
+                    chatEntity.setMessageEntities(new ArrayList<>());
+                    chatEntity.setId(UUID.randomUUID());
+                    List<ChatEntity> data = getData();
+                    if (data==null) data = new ArrayList<>();
+                    data.add(chatEntity);
+                    writeData(data);
+                }
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public ChatResponseDto get(UUID id) {
+        return null;
+    }
+
+    @Override
     public ChatResponseDto get(UUID user1Id, UUID user2Id) {
         List<ChatEntity> data = getData();
         if (data!=null ){
@@ -52,35 +81,6 @@ public class ChatServiceImp implements ChatService{
                 }
             }
         }return null;
-    }
-
-    @Override
-    public boolean create(ChatRequestDto chatRequestDto) {
-        UserResponseDto user1 = userService.get(chatRequestDto.getUser1Id());
-        if (user1!=null){
-            UserResponseDto user2 = userService.get(chatRequestDto.getUser2Id());
-            if (user2!=null){
-                ChatResponseDto chatResponseDto = get(chatRequestDto.getUser1Id(), chatRequestDto.getUser2Id());
-                if (chatResponseDto == null){
-                    ChatEntity chatEntity = new ChatEntity();
-                    chatEntity.setUser1(userService.getEntity(user1.getId()));
-                    chatEntity.setUser2(userService.getEntity(user2.getId()));
-                    chatEntity.setDate(new Date());
-                    chatEntity.setMessageEntities(new ArrayList<>());
-                    chatEntity.setId(UUID.randomUUID());
-                    List<ChatEntity> data = getData();
-                    if (data==null) data = new ArrayList<>();
-                    data.add(chatEntity);
-                    writeData(data);
-                }
-            }
-        }
-        return false;
-    }
-
-    @Override
-    public ChatResponseDto get(UUID id) {
-        return null;
     }
 
     @Override

@@ -1,9 +1,6 @@
 package org.example.model.user;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import org.example.enums.Role;
 import org.example.model.base.BaseUGC;
