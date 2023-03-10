@@ -6,6 +6,7 @@ import com.google.gson.reflect.TypeToken;
 import org.example.dto.requestDto.GroupRequestDto;
 import org.example.dto.responseDto.GroupResponseDto;
 import org.example.model.channel.ChannelEntity;
+import org.example.model.channel.PostEntity;
 import org.example.model.group.GroupEntity;
 import org.example.model.user.UserEntity;
 import org.modelmapper.ModelMapper;
@@ -42,21 +43,60 @@ public class GroupServiceImp implements GroupService {
 
     @Override
     public GroupResponseDto get(UUID id) {
+        List<GroupEntity> data = getData();
+        if (data != null){
+            for (GroupEntity datum : data) {
+                if (datum.getId().equals(id)){
+                    return modelMapper.map(datum, GroupResponseDto.class);
+                }
+            }
+        }
         return null;
     }
 
     @Override
     public List<GroupResponseDto> getList() {
+        List<GroupEntity> data = getData();
+        if (data != null){
+            List<GroupResponseDto> groupResponseDto=new ArrayList<>();
+            for (GroupEntity datum : data) {
+                groupResponseDto.add(modelMapper.map(datum, GroupResponseDto.class));
+            }
+            return groupResponseDto;
+        }
         return null;
     }
 
+
     @Override
     public boolean delete(UUID id) {
+        List<GroupEntity> data = getData();
+        if (data != null){
+            for (GroupEntity datum : data) {
+                if (datum.getId().equals(id)){
+                    data.remove(datum);
+                    writeData(data);
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
     @Override
     public boolean update(UUID id, GroupRequestDto groupRequestDto) {
+        List<GroupEntity> data = getData();
+        if (data != null){
+            for (GroupEntity datum : data) {
+                if (datum.getId().equals(id)){
+                    data.remove(datum);
+                    modelMapper.map(groupRequestDto,datum);
+                    data.add(datum);
+                    writeData(data);
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
@@ -89,6 +129,14 @@ public class GroupServiceImp implements GroupService {
 
     @Override
     public GroupEntity getEntity(UUID id) {
+        List<GroupEntity> data = getData();
+        if (data != null){
+            for (GroupEntity datum : data) {
+                if (datum.getId().equals(id)){
+                    return datum;
+                }
+            }
+        }
         return null;
     }
 }

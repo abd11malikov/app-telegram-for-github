@@ -58,16 +58,46 @@ public class PostServiceImp implements PostService{
 
     @Override
     public List<PostResponseDto> getList() {
+        List<PostEntity> data = getData();
+        if (data != null){
+            List<PostResponseDto> postResponseDto=new ArrayList<>();
+            for (PostEntity datum : data) {
+                postResponseDto.add(modelMapper.map(datum,PostResponseDto.class));
+            }
+            return postResponseDto;
+        }
         return null;
     }
 
     @Override
     public boolean delete(UUID id) {
+        List<PostEntity> data = getData();
+        if (data != null){
+            for (PostEntity datum : data) {
+                if (datum.getId().equals(id)){
+                    data.remove(datum);
+                    writeData(data);
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
     @Override
     public boolean update(UUID id, PostRequestDto postRequestDto) {
+        List<PostEntity> data = getData();
+        if (data != null){
+            for (PostEntity datum : data) {
+                if (datum.getId().equals(id)){
+                    data.remove(datum);
+                    modelMapper.map(postRequestDto,datum);
+                    data.add(datum);
+                    writeData(data);
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
@@ -100,6 +130,14 @@ public class PostServiceImp implements PostService{
 
     @Override
     public PostEntity getEntity(UUID id) {
+        List<PostEntity> data = getData();
+        if (data != null){
+            for (PostEntity datum : data) {
+                if (datum.getId().equals(id)){
+                    return datum;
+                }
+            }
+        }
         return null;
     }
 }
