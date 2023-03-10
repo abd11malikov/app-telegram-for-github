@@ -1,12 +1,12 @@
-package model.chat;
+package org.example.model.chat;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import model.base.BaseModel;
-import model.message.Message;
-import model.user.UserEntity;
+import org.example.model.base.BaseModel;
+import org.example.model.message.Message;
+import org.example.model.user.UserEntity;
 
 import java.util.List;
 @Setter

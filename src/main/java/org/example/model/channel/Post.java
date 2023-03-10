@@ -1,11 +1,11 @@
 package org.example.model.channel;
 
-import enums.MessageState;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import model.base.BaseModel;
+import org.example.enums.MessageState;
+import org.example.model.base.BaseModel;
 import org.example.model.message.Message;
 
 import java.util.List;

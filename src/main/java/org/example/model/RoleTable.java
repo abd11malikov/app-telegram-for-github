@@ -1,11 +1,11 @@
 package org.example.model;
 
-import enums.Role;
+import org.example.enums.Role;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import model.base.BaseModel;
+import org.example.model.base.BaseModel;
 import java.util.UUID;
 
 @Setter

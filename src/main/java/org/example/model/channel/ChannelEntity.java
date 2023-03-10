@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import model.base.BaseUGC;
+import org.example.model.base.BaseUGC;
 import org.example.model.user.UserEntity;
 
 import java.util.List;

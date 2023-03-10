@@ -4,11 +4,13 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import org.example.dto.requestDto.UserRequestDto;
 import org.example.dto.responseDto.UserResponseDto;
+import org.example.enums.Role;
 import org.example.model.user.UserEntity;
 import org.modelmapper.ModelMapper;
 import java.io.*;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -28,6 +30,10 @@ public class UserServiceImp implements UserService {
                         if (user.getLink().equals(userRequestDto.getLink())) return false;
                     }
                     UserEntity user = modelMapper.map(userRequestDto, UserEntity.class);
+                    user.setId(UUID.randomUUID());
+                    user.setRole(Role.USER);
+                    user.setContact(new ArrayList<>());
+                    user.setDate(new Date());
                     data.add(user);
                     writeData(data);
                     return true;
@@ -76,8 +82,8 @@ public class UserServiceImp implements UserService {
 
     @Override
     public boolean writeData(List<UserEntity> data) {
-        File file = new File("users.json");
-        Gson gson = new Gson();
+        File file = new File("data/users.json");
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file))) {
             String json = gson.toJson(data);
             bufferedWriter.write(json);

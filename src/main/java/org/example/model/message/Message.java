@@ -1,11 +1,11 @@
 package org.example.model.message;
 
-import enums.MessageState;
+import org.example.enums.MessageState;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import model.base.BaseModel;
+import org.example.model.base.BaseModel;
 import org.example.model.user.UserEntity;
 
 @Setter

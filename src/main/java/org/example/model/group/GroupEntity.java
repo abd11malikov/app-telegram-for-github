@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import model.base.BaseUGC;
+import org.example.model.base.BaseUGC;
 import org.example.model.message.Message;
 import org.example.model.user.UserEntity;
 
