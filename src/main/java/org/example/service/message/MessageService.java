@@ -11,5 +11,5 @@ import java.util.List;
 public interface MessageService extends BaseService<MessageRequestDto, MessageResponseDto, MessageEntity> {
     boolean writeMessagesData(List<Table> messages);
 
-    boolean getMessagesData();
+    List<Table> getMessagesData();
 }

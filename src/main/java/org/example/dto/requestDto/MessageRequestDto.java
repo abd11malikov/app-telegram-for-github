@@ -1,11 +1,9 @@
 package org.example.dto.requestDto;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.UUID;
-
+@NoArgsConstructor@AllArgsConstructor
 @Getter
 @Setter
 @Builder

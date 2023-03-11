@@ -37,9 +37,17 @@ public class MessageServiceImp implements MessageService{
                 message.setDate(new Date());
                 data.add(message);
                 writeData(data);
+                Table table = new Table();
+                table.setId(UUID.randomUUID());
+                table.setMessageId(message.getId());
+                table.setDate(new Date());
+                table.setState(MessageState.UNREAD);
+                List<Table> messagesData = getMessagesData();
+                if (messagesData==null) messagesData=new ArrayList<>();
+                messagesData.add(table);
+                writeMessagesData(messagesData);
                 return true;
             }
-
         }
         return false;
     }
@@ -101,6 +109,20 @@ public class MessageServiceImp implements MessageService{
             }
         }
         return false;
+    }
+
+    @Override
+    public List<Table> getMessagesData() {
+        File file = new File("data/messagesState.json");
+        Gson gson= new Gson();
+        List<Table> messageEntities;
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
+            Type type = new TypeToken<List<Table>>() {}.getType();
+            messageEntities = gson.fromJson(bufferedReader,type);
+        } catch (IOException e) {
+            return null;
+        }
+        return messageEntities;
     }
 
     @Override
