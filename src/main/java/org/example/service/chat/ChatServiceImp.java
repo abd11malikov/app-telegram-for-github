@@ -50,6 +50,14 @@ public class ChatServiceImp implements ChatService{
 
     @Override
     public ChatResponseDto get(UUID id) {
+        List<ChatEntity> data = getData();
+        if (data != null){
+            for (ChatEntity datum : data) {
+                if (datum.getId().equals(id)){
+                    return modelMapper.map(datum,ChatResponseDto.class);
+                }
+            }
+        }
         return null;
     }
 
@@ -85,16 +93,46 @@ public class ChatServiceImp implements ChatService{
 
     @Override
     public List<ChatResponseDto> getList() {
+        List<ChatEntity> data = getData();
+        if (data != null){
+            List<ChatResponseDto> responseDto=new ArrayList<>();
+            for (ChatEntity datum : data) {
+                responseDto.add(modelMapper.map(datum,ChatResponseDto.class));
+            }
+            return responseDto;
+        }
         return null;
     }
 
     @Override
     public boolean delete(UUID id) {
+        List<ChatEntity> data = getData();
+        if (data != null){
+            for (ChatEntity datum : data) {
+                if (datum.getId().equals(id)){
+                    data.remove(datum);
+                    writeData(data);
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
     @Override
     public boolean update(UUID id, ChatRequestDto chatRequestDto) {
+        List<ChatEntity> data = getData();
+        if (data != null){
+            for (ChatEntity datum : data) {
+                if (datum.getId().equals(id)){
+                    data.remove(datum);
+                    modelMapper.map(chatRequestDto,datum);
+                    data.add(datum);
+                    writeData(data);
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
@@ -127,6 +165,14 @@ public class ChatServiceImp implements ChatService{
 
     @Override
     public ChatEntity getEntity(UUID id) {
+        List<ChatEntity> data = getData();
+        if (data != null){
+            for (ChatEntity datum : data) {
+                if (datum.getId().equals(id)){
+                    return datum;
+                }
+            }
+        }
         return null;
     }
 }
