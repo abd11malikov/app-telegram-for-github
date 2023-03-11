@@ -16,5 +16,6 @@ public class UserResponseDto {
     private String link;
     private String phoneNumber;
     private String role;
+    private String password;
     private List<UUID> contactsId;
 }

@@ -16,4 +16,5 @@ public class RoleTable extends BaseModel {
     private UUID userId;
     private UUID channelId;
     private Role role;
+    private boolean isChannel;
 }

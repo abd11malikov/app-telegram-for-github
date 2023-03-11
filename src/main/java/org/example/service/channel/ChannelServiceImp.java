@@ -5,7 +5,9 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import org.example.dto.requestDto.ChannelRequestDto;
 import org.example.dto.responseDto.ChannelResponseDto;
+import org.example.enums.Role;
 import org.example.model.channel.ChannelEntity;
+import org.example.model.user.UserEntity;
 import org.example.service.user.UserService;
 import org.example.service.user.UserServiceImp;
 import org.modelmapper.ModelMapper;
@@ -30,6 +32,7 @@ public class ChannelServiceImp implements ChannelService {
                 }
                 ChannelEntity channel = modelMapper.map(channelRequestDto, ChannelEntity.class);
                 channel.setId(UUID.randomUUID());
+                UserEntity userEntity = channel.getMembers().get(0);
                 channel.setMembers(new ArrayList<>());
                 channel.setDate(new Date());
                 channel.setPostEntity(new ArrayList<>());

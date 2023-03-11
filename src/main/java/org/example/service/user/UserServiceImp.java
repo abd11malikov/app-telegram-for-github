@@ -18,6 +18,18 @@ import java.util.UUID;
 public class UserServiceImp implements UserService {
 
     static final ModelMapper modelMapper = new ModelMapper();
+
+    @Override
+    public UserResponseDto get(String phoneNumber) {
+        List<UserEntity> data = getData();
+        if (data!=null){
+            for (UserEntity user : data) {
+                if (user.getPhoneNumber().equals(phoneNumber))
+                    return modelMapper.map(user, UserResponseDto.class);
+            }
+        }return null;
+    }
+
     @Override
     public boolean create(UserRequestDto userRequestDto) {
         if (userRequestDto.getName()!=null){

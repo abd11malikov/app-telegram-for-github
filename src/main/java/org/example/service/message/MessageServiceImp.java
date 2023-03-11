@@ -7,6 +7,7 @@ import org.example.dto.responseDto.MessageResponseDto;
 import org.example.dto.responseDto.UserResponseDto;
 import org.example.enums.MessageState;
 import org.example.model.message.MessageEntity;
+import org.example.model.message.Table;
 import org.example.service.user.UserService;
 import org.example.service.user.UserServiceImp;
 import org.modelmapper.ModelMapper;
@@ -140,5 +141,18 @@ public class MessageServiceImp implements MessageService{
             }
         }
         return null;
+    }
+
+    @Override
+    public boolean writeMessagesData(List<Table> messages) {
+        File file = new File("data/messagesState.json");
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file))) {
+            String json = gson.toJson(messages);
+            bufferedWriter.write(json);
+        } catch (IOException e) {
+            return false;
+        }
+        return true;
     }
 }

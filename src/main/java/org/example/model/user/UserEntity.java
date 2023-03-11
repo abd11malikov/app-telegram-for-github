@@ -13,5 +13,6 @@ import java.util.List;
 public class UserEntity extends BaseUGC {
     private String phoneNumber;
     private Role role;
+    private String password;
     private List<UserEntity> contact;
 }

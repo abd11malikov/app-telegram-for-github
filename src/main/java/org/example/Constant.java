@@ -7,5 +7,7 @@ public interface Constant {
     String WRONG_OPTION = "Wrong option!";
     String ERROR = "Error!";
     String NOT_FOUND = "Not found";
+    String USER_PAGE = "1.Chats\t\t2.Groups\t\t3.Channels\t\t4.Setting\t\t0.Exit";
+    String CHAT_PAGE = "1.Chat List\t\t2.Add chat\t\t3.Delete chat\t\t0.Exit";
 
 }
