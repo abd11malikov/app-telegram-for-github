@@ -6,6 +6,7 @@ import com.google.gson.reflect.TypeToken;
 import org.example.dto.requestDto.ChannelRequestDto;
 import org.example.dto.responseDto.ChannelResponseDto;
 import org.example.enums.Role;
+import org.example.model.RoleTable;
 import org.example.model.channel.ChannelEntity;
 import org.example.model.user.UserEntity;
 import org.example.service.user.UserService;
@@ -21,6 +22,19 @@ import java.util.UUID;
 public class ChannelServiceImp implements ChannelService {
     static ModelMapper modelMapper = new ModelMapper();
     static UserService userService = new UserServiceImp();
+
+    @Override
+    public boolean writeTable(List<RoleTable> roleTables) {
+        File file = new File("data/chats.json");
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file))) {
+            String json = gson.toJson(roleTables);
+            bufferedWriter.write(json);
+        } catch (IOException e) {
+            return false;
+        }
+        return true;
+    }
     @Override
     public boolean create(ChannelRequestDto channelRequestDto) {
         if(channelRequestDto.getLink()!=null)
@@ -33,6 +47,18 @@ public class ChannelServiceImp implements ChannelService {
                 ChannelEntity channel = modelMapper.map(channelRequestDto, ChannelEntity.class);
                 channel.setId(UUID.randomUUID());
                 UserEntity userEntity = channel.getMembers().get(0);
+                if (userEntity==null) return false;
+                RoleTable roleTable = new RoleTable();
+                roleTable.setChannelId(channel.getId());
+                roleTable.setChannel(true);
+                roleTable.setId(UUID.randomUUID());
+                roleTable.setDate(new Date());
+                roleTable.setUserId(userEntity.getId());
+                roleTable.setRole(Role.OWNER);
+                List<RoleTable> table = getTable();
+                if (table==null) table = new ArrayList<>();
+                table.add(roleTable);
+                writeTable(table);
                 channel.setMembers(new ArrayList<>());
                 channel.setDate(new Date());
                 channel.setPostEntity(new ArrayList<>());
@@ -139,5 +165,19 @@ public class ChannelServiceImp implements ChannelService {
             }
         }
         return null;
+    }
+
+    @Override
+    public List<RoleTable> getTable() {
+        File file = new File("data/channels.json");
+        Gson gson= new Gson();
+        List<RoleTable> channelEntityList;
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
+            Type type = new TypeToken<List<RoleTable>>() {}.getType();
+            channelEntityList = gson.fromJson(bufferedReader,type);
+        } catch (IOException e) {
+            return null;
+        }
+        return channelEntityList;
     }
 }

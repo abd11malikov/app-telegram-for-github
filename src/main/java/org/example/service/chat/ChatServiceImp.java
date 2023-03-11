@@ -6,6 +6,7 @@ import com.google.gson.reflect.TypeToken;
 import org.example.dto.requestDto.ChatRequestDto;
 import org.example.dto.responseDto.ChatResponseDto;
 import org.example.dto.responseDto.UserResponseDto;
+import org.example.model.RoleTable;
 import org.example.model.chat.ChatEntity;
 import org.example.model.message.MessageEntity;
 import org.example.service.user.UserService;
@@ -175,4 +176,6 @@ public class ChatServiceImp implements ChatService{
         }
         return null;
     }
+
+
 }
